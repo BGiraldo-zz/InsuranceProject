@@ -1,17 +1,21 @@
-﻿using Insurance.Domain.AggregatesModel.PolicyAggregate;
-using Insurance.Domain.AggregatesModel.UserAggregate;
+﻿using Insurance.Domain.AggregatesModel.ClientAggregate;
+using Insurance.Domain.AggregatesModel.PolicyAggregate;
+using Insurance.Domain.AggregatesModel.PolicyDetailAggregate;
+using Insurance.Domain.SeedWork;
 using Insurance.Infrastructure.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Insurance.Infrastructure
 {
-    public class InsuranceDbContext : IdentityDbContext<InsuranceUser, InsuranceRole, int, InsuranceUserLogin, InsuranceUserRole, InsuranceUserClaim>
+    public class InsuranceDbContext : IdentityDbContext<InsuranceUser, InsuranceRole, int, InsuranceUserLogin, InsuranceUserRole, InsuranceUserClaim>, IUnitOfWork
     {
-       // public DbSet<User> Userss { get; set; }
-
-       // public DbSet<Policy> Policies { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<Policy> Policies { get; set; }
+        public DbSet<PolicyDetail> PolicyDetails { get; set; }
 
         public InsuranceDbContext()
             : base("SQLConnString")
@@ -45,6 +49,14 @@ namespace Insurance.Infrastructure
                    modelBuilder.Entity<InsuranceUserLogin>().Property(r => r.UserId).HasColumnName("UserId");
                    modelBuilder.Entity<InsuranceUserRole>().Property(r => r.UserId).HasColumnName("UserId");
                    modelBuilder.Entity<InsuranceUserRole>().Property(r => r.RoleId).HasColumnName("RoleId");
+
+        }
+
+        public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var result = await base.SaveChangesAsync();
+
+            return true;
         }
     }
 }

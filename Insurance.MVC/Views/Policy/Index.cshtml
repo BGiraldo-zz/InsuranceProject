@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Insurance.Domain.AggregatesModel.PolicyAggregate.Policy>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CoveringType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Coverage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TermBeginning)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CoverageOnMonths)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RiskType)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CoveringType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Coverage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TermBeginning)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CoverageOnMonths)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RiskType)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PolicyId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PolicyId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PolicyId })
+        </td>
+    </tr>
+}
+
+</table>

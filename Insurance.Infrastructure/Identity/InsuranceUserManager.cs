@@ -4,10 +4,6 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Insurance.Infrastructure.Identity
 {
@@ -15,8 +11,8 @@ namespace Insurance.Infrastructure.Identity
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
     public class InsuranceUserManager : UserManager<InsuranceUser, int>
     {
-        public InsuranceUserManager(IUserStore<InsuranceUser, int> store)
-            : base(store)
+
+        public InsuranceUserManager(IUserStore<InsuranceUser, int> store) : base(store)
         {
         }
 
@@ -27,10 +23,16 @@ namespace Insurance.Infrastructure.Identity
             manager.UserValidator = new UserValidator<InsuranceUser, int>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = true
+                RequireUniqueEmail = false
             };
 
             // Configure validation logic for passwords
+            /* GRAN-267: Login: Forgot Pasword Function: Reset.
+             * Passwords must be minimum of 8 characters in length, 
+             * contain at least 1 number and 
+             * 1 special character, 
+             * and not to include user's first name, 
+             * last name or login.*/
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 1,
@@ -39,6 +41,9 @@ namespace Insurance.Infrastructure.Identity
                 RequireLowercase = false,
                 RequireUppercase = false,
             };
+
+            //  manager.PasswordHasher = new PasswordHelper();
+
 
             // Configure user lockout defaults
             manager.UserLockoutEnabledByDefault = true;
@@ -66,5 +71,6 @@ namespace Insurance.Infrastructure.Identity
             }
             return manager;
         }
+
     }
 }

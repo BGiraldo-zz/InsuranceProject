@@ -1,13 +1,16 @@
-﻿using Insurance.Infrastructure.Identity;
-using Insurance.Infrastructure.Models;
-using Insurance.MVC.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
+﻿using System;
+using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using Insurance.MVC.Models;
+using Insurance.Infrastructure.Identity;
+using Insurance.Infrastructure.Models;
 
 namespace Insurance.MVC.Controllers
 {
@@ -176,7 +179,7 @@ namespace Insurance.MVC.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(int userId, string code)
         {
-            if (userId == null || code == null)
+            if (userId == 0 || code == null)
             {
                 return View("Error");
             }
@@ -287,7 +290,7 @@ namespace Insurance.MVC.Controllers
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
             var userId = await SignInManager.GetVerifiedUserIdAsync();
-            if (userId == null)
+            if (userId == 0)
             {
                 return View("Error");
             }
