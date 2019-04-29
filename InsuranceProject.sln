@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Readme.md = Readme.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insurance.API", "Insurance.API\Insurance.API.csproj", "{D079D760-E47C-43BF-9936-C0CDF4D06B7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{9FD68ADA-A93F-451F-89EA-4AD59B6DB0DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FD68ADA-A93F-451F-89EA-4AD59B6DB0DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FD68ADA-A93F-451F-89EA-4AD59B6DB0DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D079D760-E47C-43BF-9936-C0CDF4D06B7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D079D760-E47C-43BF-9936-C0CDF4D06B7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D079D760-E47C-43BF-9936-C0CDF4D06B7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D079D760-E47C-43BF-9936-C0CDF4D06B7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
