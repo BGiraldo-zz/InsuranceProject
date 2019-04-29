@@ -6,6 +6,7 @@ using Insurance.Infrastructure.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure.Annotations;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -49,6 +50,13 @@ namespace Insurance.Infrastructure
                    modelBuilder.Entity<InsuranceUserLogin>().Property(r => r.UserId).HasColumnName("UserId");
                    modelBuilder.Entity<InsuranceUserRole>().Property(r => r.UserId).HasColumnName("UserId");
                    modelBuilder.Entity<InsuranceUserRole>().Property(r => r.RoleId).HasColumnName("RoleId");
+
+                   modelBuilder.Entity<Client>()
+                                                .Property(c => c.Identification)
+                                                .HasColumnAnnotation("IndetificationUnique", new IndexAnnotation(new IndexAttribute() { IsUnique = true }));
+                  /* modelBuilder.Entity<PolicyDetail>()
+                                                .Property(p =>  p.ClientId & p.PolicyId )
+                                                .HasColumnAnnotation("PolicyDetailUnique", new IndexAnnotation(new IndexAttribute() { IsUnique = true }));*/
         }
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))

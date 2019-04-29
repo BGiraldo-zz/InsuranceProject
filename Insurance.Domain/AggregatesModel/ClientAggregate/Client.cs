@@ -1,5 +1,4 @@
-﻿using Insurance.Domain.AggregatesModel.PolicyAggregate;
-using Insurance.Domain.AggregatesModel.PolicyDetailAggregate;
+﻿using Insurance.Domain.AggregatesModel.PolicyDetailAggregate;
 using Insurance.Domain.SeedWork;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
