@@ -14,7 +14,7 @@ namespace Insurance.Domain.AggregatesModel.ClientAggregate
         [Display(Name = "Identification Number")]
         public int Identification { get; set; }
 
-        [Display(Name = "Complete Name")]
+        [Display(Name = "Client Name")]
         public string CompleteName { get; set; }
 
         public string Address { get; set; }

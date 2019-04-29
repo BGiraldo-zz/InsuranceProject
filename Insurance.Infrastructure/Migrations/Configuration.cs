@@ -1,5 +1,9 @@
 namespace Insurance.Infrastructure.Migrations
 {
+    using Insurance.Domain.AggregatesModel.ClientAggregate;
+    using Insurance.Domain.AggregatesModel.PolicyAggregate;
+    using Insurance.Domain.AggregatesModel.PolicyDetailAggregate;
+    using System;
     using System.Data.Entity.Migrations;
 
     public sealed class Configuration : DbMigrationsConfiguration<Insurance.Infrastructure.InsuranceDbContext>
@@ -10,20 +14,40 @@ namespace Insurance.Infrastructure.Migrations
             AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override void Seed(Insurance.Infrastructure.InsuranceDbContext context)
+        protected override void Seed(InsuranceDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            context.Clients.AddOrUpdate(
+              new Client { ClientId = 0,
+                           Identification = 123456789,
+                           CompleteName = "Pepito Peréz",
+                           Address = "Cr. 12 # 33 - 22 Medellín",
+                           Email = "pepito@mail.com",
+                           Phone = "00000000" }
+            );
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            context.Policies.AddOrUpdate(
+              new Policy
+              {   PolicyId = 0,
+                  Name = "Test Policy",
+                  Description = "Total Protection",
+                  TermBeginning = DateTime.Now,
+                  Coverage = 17,
+                  CoverageOnMonths = 24,
+                  CoveringType = CoveringTypedEnum.Robo,
+                  Price  = 3500000,
+                  RiskType = RiskTypeEnum.Medio
+              }
+            );
+
+            context.PolicyDetails.AddOrUpdate(
+              new PolicyDetail
+              {
+                  Client = context.Clients.Find(0),
+                  Policy = context.Policies.Find(0),
+                  Status = true
+              }
+            );
+
         }
     }
 }

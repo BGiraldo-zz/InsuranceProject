@@ -21,7 +21,7 @@ namespace Insurance.Infrastructure.Repositories
         public void Add(Client client)
         {
             _context.Clients.Add(client);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public Client Get(int? clientId)
@@ -38,13 +38,19 @@ namespace Insurance.Infrastructure.Repositories
         {
             Client client = this.Get(clientId);
             _context.Clients.Remove(client);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public void Update(Client client)
         {
-            _context.Entry(client).State = EntityState.Modified;
-            _context.SaveChangesAsync();
+            var entity = _context.Clients.Find(client.ClientId);
+            if (entity == null)
+            {
+                return;
+            }
+
+            _context.Entry(entity).CurrentValues.SetValues(client);
+            _context.SaveChanges();
         }
     }
 }

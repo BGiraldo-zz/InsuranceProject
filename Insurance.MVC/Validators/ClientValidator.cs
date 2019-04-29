@@ -12,7 +12,7 @@ namespace Insurance.MVC.Validators
         public ClientValidator(IClientRepository context)
         {
             this._context = context;
-            RuleFor(x => x.Identification).Must(BeUniqueId).WithMessage("Identification number already exist");
+            RuleFor(x => x.Identification).Must(BeUniqueId);
         }
 
         private bool BeUniqueId(int id)

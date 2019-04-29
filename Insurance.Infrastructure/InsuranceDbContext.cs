@@ -49,7 +49,6 @@ namespace Insurance.Infrastructure
                    modelBuilder.Entity<InsuranceUserLogin>().Property(r => r.UserId).HasColumnName("UserId");
                    modelBuilder.Entity<InsuranceUserRole>().Property(r => r.UserId).HasColumnName("UserId");
                    modelBuilder.Entity<InsuranceUserRole>().Property(r => r.RoleId).HasColumnName("RoleId");
-
         }
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))

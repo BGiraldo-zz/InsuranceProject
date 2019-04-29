@@ -56,6 +56,10 @@ namespace Insurance.MVC.Controllers
                 _context.Add(client);
                 return RedirectToAction("Index");
             }
+            else
+            {
+                ModelState.AddModelError("Identification", "Already exists a client with that Identification number");
+            }
 
             return View(client);
         }
@@ -82,11 +86,16 @@ namespace Insurance.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ClientId,Identification,CompleteName,Address,Phone,Email")] Client client)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid & _validator.Validate(client).IsValid)
             {
                 _context.Update(client);
                 return RedirectToAction("Index");
             }
+            else
+            {
+                ModelState.AddModelError("Identification", "Already exists a client with that Identification number");
+            }
+
             return View(client);
         }
 

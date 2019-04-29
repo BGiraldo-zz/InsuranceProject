@@ -1,4 +1,5 @@
-﻿using Insurance.Domain.AggregatesModel.PolicyAggregate;
+﻿using FluentValidation.Mvc;
+using Insurance.Domain.AggregatesModel.PolicyAggregate;
 using Insurance.Infrastructure;
 using Insurance.MVC.Validators;
 using System.Data.Entity;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 
 namespace Insurance.MVC.Controllers
 {
+    [Authorize]
     public class PolicyController : Controller
     {
         private readonly IPolicyRepository _context;
@@ -58,6 +60,10 @@ namespace Insurance.MVC.Controllers
                 _context.Add(policy);
                 return RedirectToAction("Index");
             }
+            else
+            {
+                ModelState.AddModelError("Coverage", "This case the risk is high therefore the coverage must be less than 50%.");
+            }
 
             return View(policy);
         }
@@ -84,11 +90,17 @@ namespace Insurance.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "PolicyId,Name,Description,CoveringType,Coverage,TermBeginning,CoverageOnMonths,Price,RiskType")] Policy policy)
         {
-            if (ModelState.IsValid)
+
+            if (ModelState.IsValid & _validator.Validate(policy).IsValid)
             {
                 _context.Update(policy);
                 return RedirectToAction("Index");
             }
+            else
+            {
+                ModelState.AddModelError("Coverage", "This case the risk is high therefore the coverage must be less than 50%.");
+            }
+
             return View(policy);
         }
 

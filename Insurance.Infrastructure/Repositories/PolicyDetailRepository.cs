@@ -24,7 +24,7 @@ namespace Insurance.Infrastructure.Repositories
         public void Add(PolicyDetail policy)
         {
             _context.PolicyDetails.Add(policy);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public PolicyDetail Get(int? policyId)
@@ -41,13 +41,19 @@ namespace Insurance.Infrastructure.Repositories
         {
             PolicyDetail policyDetail = this.Get(policyId);
             _context.PolicyDetails.Remove(policyDetail);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public void Update(PolicyDetail policy)
         {
-            _context.Entry(policy).State = EntityState.Modified;
-            _context.SaveChangesAsync();
+            var entity = _context.PolicyDetails.Find(policy.PolicyDetailId);
+            if (entity == null)
+            {
+                return;
+            }
+
+            _context.Entry(entity).CurrentValues.SetValues(policy);
+            _context.SaveChanges();
         }
 
         public IQueryable<PolicyDetail> Include()

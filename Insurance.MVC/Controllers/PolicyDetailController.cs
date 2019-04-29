@@ -5,6 +5,7 @@ using System.Web.Mvc;
 
 namespace Insurance.MVC.Controllers
 {
+    [Authorize]
     public class PolicyDetailController : Controller
     {
         private readonly IPolicyDetailRepository _context;
@@ -50,10 +51,20 @@ namespace Insurance.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "PolicyDetailId,PolicyId,ClientId,Status")] PolicyDetail policyDetail)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid & (policyDetail.ClientId != 0 & policyDetail.PolicyId != 0))
             {
-                _context.Add(policyDetail);
-                return RedirectToAction("Index");
+                var existentPolicyDetail = _context.GetAll().FirstOrDefault(pd => pd.ClientId == policyDetail.ClientId & 
+                                                                                    pd.PolicyId == policyDetail.PolicyId);
+
+                if(existentPolicyDetail == null)
+                {
+                    _context.Add(policyDetail);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("ClientId", "This user already has this policy");
+                }
             }
 
             ViewBag.ClientId = new SelectList(_context.GetClients(), "ClientId", "CompleteName", policyDetail.ClientId);

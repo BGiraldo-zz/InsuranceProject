@@ -11,6 +11,7 @@ namespace Insurance.Domain.AggregatesModel.PolicyAggregate
         [Key]
         public int PolicyId { get; set; }
 
+        [Display(Name = "Policy Name")]
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -20,6 +21,7 @@ namespace Insurance.Domain.AggregatesModel.PolicyAggregate
 
         public decimal Coverage { get; set; }
 
+        [DataType(DataType.Date)]
         [Display(Name = "Term of the policy")]
         public DateTime TermBeginning { get; set; }
 

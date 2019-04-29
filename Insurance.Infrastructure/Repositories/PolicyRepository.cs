@@ -22,7 +22,7 @@ namespace Insurance.Infrastructure.Repositories
         public void Add(Policy policy)
         {
             _context.Policies.Add(policy);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public Policy Get(int? policyId)
@@ -39,13 +39,19 @@ namespace Insurance.Infrastructure.Repositories
         {
             Policy policy = this.Get(policyId);
             _context.Policies.Remove(policy);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public void Update(Policy policy)
         {
-            _context.Entry(policy).State = EntityState.Modified;
-            _context.SaveChangesAsync();
+            var entity = _context.Policies.Find(policy.PolicyId);
+            if (entity == null)
+            {
+                return;
+            }
+
+            _context.Entry(entity).CurrentValues.SetValues(policy);
+            _context.SaveChanges();
         }
     }
 }
