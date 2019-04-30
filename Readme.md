@@ -15,10 +15,12 @@
 
 **Insurance Angular Client to work togueter with the ASPNET WEB API HERE: https://github.com/BGiraldo/InsuranceAngularClient.git**
 
-**Note:** Please Don't forget to change the connection string according to your database server on the MVC and API Web Config files. 
+**Note:** Please Don't forget to change the **connection string** according to your database server on the MVC and API Web Config files. 
 
-**Note:** If you receive an error running the MVC project called "Could not find a part of the path … bin\roslyn\csc.exe" this is because
+**Note:** If you receive an error running any project called **"Could not find a part of the path … bin\roslyn\csc.exe"** this is because
 a nuget package installation please run this line on your Package Manager Console "Update-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform -r"
+
+**Note:** The first time you run this app is going to take some time to create the database.
 
 Check that it works according to the attached PDF Document.
 
