@@ -35,11 +35,18 @@ namespace Insurance.API
             var cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);
 
+            // Route to index.html
+            config.Routes.MapHttpRoute(
+                name: "Index",
+                routeTemplate: "{id}.html",
+                defaults: new { id = "index" });
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
         }
     }
 }
